@@ -277,3 +277,4 @@
 [2015-11-15T16:43:37] Refactor utils (#277)
 [2015-11-17T19:39:38] Refactor utils (#278)
 [2015-11-17T21:32:21] Add error handling (#279)
+[2015-11-17T22:23:14] Fix edge case (#280)
