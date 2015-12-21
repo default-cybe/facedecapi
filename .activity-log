@@ -305,3 +305,4 @@
 [2015-12-15T20:16:49] Refactor code (#305)
 [2015-12-17T18:27:24] Add error handling (#306)
 [2015-12-17T21:38:26] Add validation (#307)
+[2015-12-21T17:40:55] Fix edge case (#308)
