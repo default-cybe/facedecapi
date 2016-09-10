@@ -766,3 +766,4 @@
 [2016-09-08T14:02:01] Fix edge case (#766)
 [2016-09-09T10:49:23] Add error handling (#767)
 [2016-09-09T14:12:34] Add error handling (#768)
+[2016-09-09T22:37:40] Optimize (#769)
