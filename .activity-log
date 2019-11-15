@@ -1856,3 +1856,4 @@
 [2019-11-14T10:16:06] Refactor code (#1856)
 [2019-11-14T16:40:15] Update README (#1857)
 [2019-11-15T09:52:08] Add error handling (#1858)
+[2019-11-15T09:57:56] Fix edge case (#1859)
