@@ -3976,3 +3976,4 @@
 [2025-04-16T17:12:28] Add error handling (#3976)
 [2025-04-19T12:26:07] Refactor utils (#3977)
 [2025-04-24T12:27:14] Fix formatting (#3978)
+[2025-04-28T14:54:32] Fix edge case (#3979)
