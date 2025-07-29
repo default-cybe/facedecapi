@@ -39,3 +39,52 @@ def load_reference_encodings(folder):
 
 # Encode the reference set once, at startup.
 reference_encodings = load_reference_encodings(reference_images_folder)
+
+
+@app.route('/process_image', methods=['POST'])
+def process_image():
+    """Detect faces in the uploaded image and match them against the references.
+
+    Expects a multipart upload with an ``image`` field. Returns a JSON array
+    with one entry per detected face, or an empty array when none are found.
+    """
+    if 'image' not in request.files:
+        return jsonify({'error': 'No image provided'}), 400
+
+    try:
+        # Read the image from the request
+        image = request.files['image'].read()
+        nparr = np.frombuffer(image, np.uint8)
+        frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+
+        # Convert frame from BGR to RGB
+        rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+        # Find all face locations and encodings in the frame
+        face_locations = face_recognition.face_locations(rgb_frame)
+        face_encodings = face_recognition.face_encodings(rgb_frame, face_locations)
+
+        results = []
+
+        # If no faces are found, return an empty result
+        if len(face_encodings) == 0:
+            return jsonify([])
+
+        # Compare each face encoding with the reference encodings
+        for face_encoding in face_encodings:
+            # Compare the current face encoding with the reference encodings
+            matches = []
+            for ref_encoding in reference_encodings:
+                match = face_recognition.compare_faces([ref_encoding['encoding']], face_encoding)
+                if True in match:
+                    matches.append(ref_encoding['image_name'])
+
+            if matches:
+                results.append({'match': True, 'image_names': matches})
+            else:
+                results.append({'match': False, 'image_names': ['unknown']})
+
+        return jsonify(results)
+
+    except Exception as e:
+        # Handle errors gracefully
