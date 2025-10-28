@@ -36,3 +36,39 @@ Response is a JSON array with one entry per face detected in the uploaded image:
 - Errors return `{"error": "..."}` with an appropriate HTTP status code
   (`400` if no image field is supplied, `500` on a processing failure).
 
+## Example
+
+```bash
+curl -X POST http://localhost:5000/process_image \
+  -F "image=@/path/to/photo.jpg"
+```
+
+## Running it
+
+1. Install the system dependencies. `face_recognition` builds on top of dlib, so
+   you need a compiler toolchain and CMake available:
+
+   ```bash
+   # Debian/Ubuntu
+   sudo apt-get install build-essential cmake
+   ```
+
+2. Install the Python packages:
+
+   ```bash
+   pip install flask face_recognition opencv-python numpy
+   ```
+
+3. Create a `reference_images/` folder next to `api.py` and drop in one photo
+   per person you want to recognise. Each file should contain a single clear
+   face; the filename is used as the person's label in the response.
+
+4. Start the server:
+
+   ```bash
+   python api.py
+   ```
+
+   It listens on port `5000`. Host, port and debug mode can be overridden with
+   the `HOST`, `PORT` and `FLASK_DEBUG` environment variables.
+
