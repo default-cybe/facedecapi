@@ -72,3 +72,11 @@ curl -X POST http://localhost:5000/process_image \
    It listens on port `5000`. Host, port and debug mode can be overridden with
    the `HOST`, `PORT` and `FLASK_DEBUG` environment variables.
 
+## Tech notes
+
+- Face detection and encoding are handled by `face_recognition`/dlib; matching
+  uses its default Euclidean distance tolerance.
+- Uploaded images are decoded with OpenCV (`cv2.imdecode`) and converted from
+  BGR to RGB before encoding, since `face_recognition` expects RGB input.
+- Encodings for the reference set are computed once at startup and held in
+  memory, so adding or changing reference images requires a restart.
